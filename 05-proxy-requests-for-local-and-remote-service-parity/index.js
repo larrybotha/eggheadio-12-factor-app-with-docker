@@ -13,7 +13,15 @@ const proxyBaseImgUrl = baseImgUrl
       proxyReqPathResolver(req) {
         // create a new path to that same image, but on the CDN / wherever
         // it's hosted
-        const newPath = `${baseImgUrl}${req.path}`;
+        const d = new Date();
+        const query = encodeURI(
+          `text=proxied at ${d
+            .toString()
+            .split(' ')
+            .slice(4)
+            .join(' ')}`
+        );
+        const newPath = `${baseImgUrl}${req.path}?${query}`;
         console.log(newPath);
 
         // return that path to be served for the asset
